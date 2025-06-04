@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 여행지 api값 조회, db저장 sql -->
+<mapper namespace="com.midproject.tripin.repositiory.PlaceOpenAPIRepo">
+
+<!-- openAPI 값 불러오기 -->
+<select id="selectPlaceById" parameterType="int" resultType="PlaceVO">
+	SELECT
+		dest_id
+		, dest_name
+		, dest_type
+		, repr_img_url
+		, full_address
+		, contact_num
+		, oper_hours
+		, fee_info
+		, rel_keywords
+		, orig_json_data
+	FROM dests
+	WHERE dest_id = #{dest_id}
+</select>
+
+<!-- openAPI 값 db저장 -->
+<insert id="insertPlace" parameterType="PlaceVO">
+	INSERT INTO dests(dest_id
+		, dest_name
+		, dest_type
+		, repr_img_url
+		, full_address
+		, contact_num
+		, oper_hours
+		, fee_info
+		, rel_keywords
+		, orig_json_data
+		, created_time
+		, rest_date
+		, content_type)
+	VALUES (#{dest_id, jdbcType=INTEGER}
+		, #{dest_name, jdbcType=VARCHAR}
+		, #{dest_type, jdbcType=VARCHAR}
+		, #{repr_img_url, jdbcType=VARCHAR}
+		, #{full_address, jdbcType=VARCHAR}
+		, #{contact_num, jdbcType=VARCHAR}
+		, #{oper_hours, jdbcType=VARCHAR}
+		, #{fee_info, jdbcType=VARCHAR}
+		, #{rel_keywords, jdbcType=VARCHAR}
+		, #{orig_json_data, jdbcType=VARCHAR}
+		, #{created_time, jdbcType=VARCHAR}
+		, #{rest_date, jdbcType=VARCHAR}
+		, #{content_type, jdbcType=INTEGER}
+		)
+</insert>
+
+
+<!-- 테마 아이디로 테마 이름 선택 -->
+<select id="selectThemeIdByName" parameterType="String" resultType="int">
+	SELECT theme_id
+	FROM themes
+	WHERE theme_name = #{theme_name}
+</select>
+
+<insert id="insertDestTheme" parameterType="PlaceDestThemesVO">
+	INSERT INTO dest_themes(dest_theme_id, dest_id, theme_id)
+	VALUES (seq_dest_themes_id.NEXTVAL, #{dest_id}, #{theme_id})
+	
+</insert>
+
+</mapper>

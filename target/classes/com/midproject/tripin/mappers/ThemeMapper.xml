@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midproject.tripin.repositiory.ThemeRepo">
+
+
+
+    <select id="getThemeCountsForChart" resultType="ThemeVO">
+        SELECT
+            THEME_ID,
+            THEME_NAME,
+            THEME_CNT
+        FROM
+            THEMES
+        WHERE
+            THEME_CNT > 0 
+        ORDER BY
+            THEME_CNT DESC
+    </select>
+</mapper>

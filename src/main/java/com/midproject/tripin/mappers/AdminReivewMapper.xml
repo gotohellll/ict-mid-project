@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midproject.tripin.repositiory.AdminReviewRepo">
+
+    
+    <select id="getAllReviewsForAdmin" resultType="AdminReviewVO">
+        SELECT
+            R.REVIEW_ID,        -- reviewId
+            R.USER_ID,          -- userId
+            U.USER_NAME,        -- userName (JOIN)
+            R.DEST_ID,          -- destId
+            D.DEST_NAME,        -- destName (JOIN)
+            R.RATING,           -- rating
+            R.CONTENT,          -- content
+            R.CREATED_AT,        -- createdAt
+            R.REPORT_COUNT
+        FROM
+            REVIEWS R
+        JOIN
+            USERS U ON R.USER_ID = U.USER_ID
+        JOIN
+            DESTS D ON R.DEST_ID = D.DEST_ID
+        ORDER BY
+            R.REVIEW_ID DESC
+    </select>
+    
+    <select id="getTotalReviewCount" resultType="long">
+    SELECT COUNT(*) FROM REVIEWS
+	</select>
+	
+        <select id="getDetailReview" parameterType="long" resultType="AdminReviewVO">
+        SELECT
+            R.REVIEW_ID,        -- reviewId
+            R.USER_ID,          -- userId
+            U.USER_NAME,        -- userName (JOIN)
+            R.DEST_ID,          -- destId
+            D.DEST_NAME,        -- destName (JOIN)
+            R.RATING,           -- rating
+            R.CONTENT,          -- content
+            R.CREATED_AT,        -- createdAt
+            R.REPORT_COUNT,
+            R.IMAGE_PATH
+        FROM
+            REVIEWS R
+        JOIN
+            USERS U ON R.USER_ID = U.USER_ID
+        JOIN
+            DESTS D ON R.DEST_ID = D.DEST_ID
+        WHERE
+            R.REVIEW_ID = #{review_id}
+    </select>
+	<delete id="deleteReview" parameterType="AdminReviewVO">
+        DELETE FROM REVIEWS WHERE REVIEW_ID = #{review_id}
+    </delete>
+
+</mapper>

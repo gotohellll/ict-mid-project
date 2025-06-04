@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- 콘솔 출력 Appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 기본 Spring 로그 레벨 -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.web" level="INFO"/>
+
+    <!-- 애플리케이션 루트 로거 (본인 프로젝트의 루트 패키지명으로 변경) -->
+    <logger name="com.midproject.tripin" level="DEBUG"/> <!-- 기본 로그 레벨 -->
+
+    <!-- MyBatis 매퍼 인터페이스 및 SQL 실행 로그 상세 설정 -->
+    <!-- UserRepo 인터페이스가 있는 패키지 경로로 정확히 지정해주세요 -->
+    <logger name="com.midproject.tripin.repositiory" level="TRACE">
+        <appender-ref ref="STDOUT" /> <!-- 이 로거의 출력을 콘솔로 보냄 -->
+    </logger>
+    <!-- 또는 특정 매퍼 인터페이스만 지정할 수도 있습니다. -->
+    <!-- <logger name="com.midproject.tripin.repository.UserRepo" level="TRACE">
+        <appender-ref ref="STDOUT" />
+    </logger> -->
+
+    <!-- SQL 실행 관련 로그 -->
+    <logger name="java.sql.Connection" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="java.sql.Statement" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="java.sql.PreparedStatement" level="DEBUG">
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="java.sql.ResultSet" level="TRACE"> <!-- 실제 반환 값을 보려면 TRACE -->
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- 루트 로거 설정: 기본적으로 INFO 레벨, 콘솔로 출력 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>

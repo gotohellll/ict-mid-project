@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midproject.tripin.repositiory.AdminUserRepo">
+
+  <select id="getUserList" resultType="AdminUserVO">
+        SELECT
+            USER_ID,        -- userId
+            JOINED_AT,      -- joinedAt
+            LOGIN_ID,       -- loginId
+            USER_NAME,      -- userName
+            ADDRESS,        -- address
+            PHONE_NUM,      -- phoneNum
+            BIRTH_DATE,     -- birthDate
+            IS_MODIFIED,    -- isModified
+            SOCIAL_ID,      -- socialId
+            LOGIN_PROVIDER  -- loginProvider
+        FROM
+            USERS
+        ORDER BY
+            USER_ID DESC
+    </select>
+
+    <select id="getTotalUserCount" resultType="long">
+    SELECT COUNT(*) FROM USERS
+	</select>
+    
+    <select id="getUserById" parameterType="long" resultType="AdminUserVO">
+        SELECT
+            USER_ID, JOINED_AT, LOGIN_ID, USER_NAME, ADDRESS, PHONE_NUM, BIRTH_DATE, IS_MODIFIED, SOCIAL_ID, LOGIN_PROVIDER
+        FROM
+            USERS
+        WHERE
+            USER_ID = #{user_id}
+    </select>
+
+    
+    <insert id="insertUser" parameterType="AdminUserVO">
+        INSERT INTO USERS (
+            LOGIN_ID, PASSWORD, USER_NAME, ADDRESS, PHONE_NUM, BIRTH_DATE, IS_MODIFIED, SOCIAL_ID, LOGIN_PROVIDER, JOINED_AT
+        ) VALUES (
+            #{loginId}, #{password}, #{userName}, #{address}, #{phoneNum}, #{birthDate}, #{isModified}, #{socialId}, #{loginProvider}, SYSDATE
+        )
+    </insert>
+
+    
+    <update id="updateUser" parameterType="AdminUserVO">
+        UPDATE USERS
+        SET
+            USER_NAME = #{user_name},
+            ADDRESS = #{address},
+            PHONE_NUM = #{phone_num},
+            BIRTH_DATE = #{birth_date},
+            IS_MODIFIED = 'Y', 
+            SOCIAL_ID = #{social_id},
+            LOGIN_PROVIDER = #{login_provider}
+           
+        WHERE
+            USER_ID = #{user_id}
+    </update>
+
+    
+    <delete id="deleteUser" parameterType="AdminUserVO">
+        DELETE FROM USERS WHERE USER_ID = #{userId}
+    </delete>
+
+
+</mapper>

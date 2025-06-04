@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midproject.tripin.repositiory.AdminChatInquiryRepo">
+
+ <insert id="insertChatInquiry" parameterType="AdminFAQVO">
+         INSERT INTO CHAT_INQUIRIES (
+            USER_ID, USER_QUERY, CHATBOT_RESP, CONV_AT,
+            INQUIRY_CATEGORY, INQUIRY_DETAIL, INQUIRY_STATUS, PRIORITY, ATTACHMENT_INFO
+        ) VALUES (
+            #{user_id}, #{user_query, jdbcType=CLOB}, #{chatbot_resp, jdbcType=CLOB}, NVL(#{conv_at}, SYSDATE),
+            #{inquiry_category}, #{inquiry_detail, jdbcType=CLOB}, NVL(#{inquiry_status}, 'OPEN'), NVL(#{priority}, 2), #{attachment_info}
+        )
+    </insert>
+
+    <update id="updateChatInquiryByAdmin" parameterType="AdminFAQVO">
+        UPDATE CHAT_INQUIRIES
+        SET
+            INQUIRY_STATUS = #{inquiry_status},
+            ASSIGNED_ADMIN_ID = #{assigned_admin_id},
+            ADMIN_RESPONSE = #{admin_response, jdbcType=CLOB},
+            RESPONDED_AT = #{responded_at},
+            PRIORITY = #{priority},
+            INQUIRY_CATEGORY = #{inquiry_category}
+        WHERE CHAT_INQ_ID = #{chat_inq_id}
+    </update>
+<select id="getCountByStatus" parameterType="string" resultType="long">
+    SELECT COUNT(*) FROM CHAT_INQUIRIES
+    WHERE INQUIRY_STATUS = #{inquiry_status}
+</select>
+    <select id="getChatInquiryById" parameterType="long" resultType="AdminFAQVO">
+        SELECT  CI.CHAT_INQ_ID,         
+            CI.USER_ID,              
+            CI.USER_QUERY,           
+            CI.CHATBOT_RESP,        
+            CI.CONV_AT,              
+            CI.INQUIRY_CATEGORY,     
+            CI.INQUIRY_DETAIL,       
+            CI.INQUIRY_STATUS,       
+            CI.ASSIGNED_ADMIN_ID,    
+            CI.ADMIN_RESPONSE,      
+            CI.RESPONDED_AT,         
+            CI.PRIORITY,            
+            U.USER_NAME AS user_name, 
+            A.ADMIN_NAME AS assigned_admin_name 
+        FROM CHAT_INQUIRIES CI
+        LEFT JOIN USERS U ON CI.USER_ID = U.USER_ID
+        LEFT JOIN ADMINS A ON CI.ASSIGNED_ADMIN_ID = A.ADMIN_ID
+        WHERE CI.CHAT_INQ_ID = #{chat_inq_id}
+    </select>
+
+    <select id="getChatInquiriesForAdmin" parameterType="AdminFAQVO" resultType="AdminFAQVO">
+        SELECT CI.CHAT_INQ_ID, CI.USER_ID, CI.USER_QUERY, CI.CHATBOT_RESP, CI.CONV_AT,
+            CI.INQUIRY_CATEGORY, CI.INQUIRY_DETAIL, CI.INQUIRY_STATUS,
+            CI.ASSIGNED_ADMIN_ID, CI.ADMIN_RESPONSE, CI.RESPONDED_AT, CI.PRIORITY,
+            U.USER_NAME AS user_name,
+            A.ADMIN_NAME AS assigned_admin_name
+        FROM CHAT_INQUIRIES CI
+        LEFT JOIN USERS U ON CI.USER_ID = U.USER_ID
+        LEFT JOIN ADMINS A ON CI.ASSIGNED_ADMIN_ID = A.ADMIN_ID
+        ORDER BY CI.PRIORITY ASC, CI.CONV_AT DESC
+    
+    </select>
+
+    <select id="getTotalChatInquiriesForAdmin" parameterType="AdminFAQVO" resultType="int">
+        SELECT COUNT(*)
+        FROM CHAT_INQUIRIES CI
+        LEFT JOIN USERS U ON CI.USER_ID = U.USER_ID
+        LEFT JOIN ADMINS A ON CI.ASSIGNED_ADMIN_ID = A.ADMIN_ID
+    </select>
+
+    <select id="getChatInquiriesByUserId" parameterType="long" resultType="AdminFAQVO">
+        SELECT *
+        FROM CHAT_INQUIRIES CI
+        LEFT JOIN USERS U ON CI.USER_ID = U.USER_ID
+        LEFT JOIN ADMINS A ON CI.ASSIGNED_ADMIN_ID = A.ADMIN_ID
+        WHERE CI.USER_ID = #{user_id}
+        ORDER BY CI.CONV_AT DESC
+    </select>
+
+</mapper>

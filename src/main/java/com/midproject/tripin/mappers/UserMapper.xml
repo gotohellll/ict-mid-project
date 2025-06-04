@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midproject.tripin.repositiory.UserRepo">
+
+	<select id="selectUser" parameterType="Integer" resultType="UserVO">
+		SELECT * FROM users
+		WHERE user_id=#{user_id}
+	</select>
+	
+	<update id="updateUser" parameterType="UserVO">
+		UPDATE users SET user_name=#{user_name}, password=#{password}, phone_num=#{phone_num}
+		WHERE user_id=#{user_id}
+	</update>
+	
+	    <select id="findByEmailForAuth" parameterType="string" resultType="UserVO">
+        SELECT
+            USER_ID,   
+            LOGIN_ID,   
+            PASSWORD,  
+            USER_NAME, 
+            JOINED_AT 
+        FROM
+            USERS
+        WHERE
+            LOGIN_ID = #{email}
+    </select>
+    
+     <insert id="insertUser" parameterType="UserVO">
+        <!-- USER_ID는 트리거로 자동 생성된다고 가정 -->
+        INSERT INTO USERS (
+            LOGIN_ID, PASSWORD, USER_NAME,JOINED_AT,LOGIN_PROVIDER
+            <!-- UserVO에 있는 다른 기본값 설정 가능한 필드들 (예: IS_MODIFIED, LOGIN_PROVIDER) -->
+        ) VALUES (
+            #{login_id},
+            #{password},      -- 서비스에서 해싱된 비밀번호 전달
+            #{user_name},
+            NVL(#{joined_at}, SYSDATE),
+            #{login_provider}           -- 가입일
+          
+        )
+    </insert>
+    
+    <select id="findBySocialIdAndProvider" resultType="UserVO">
+    SELECT
+        USER_ID, LOGIN_ID, USER_NAME,JOINED_AT, SOCIAL_ID, LOGIN_PROVIDER
+    FROM
+        USERS
+    WHERE
+        SOCIAL_ID = #{social_id} AND LOGIN_PROVIDER = #{login_provider}
+</select>
+
+<update id="updateUserSocialInfo" parameterType="UserVO">
+    UPDATE USERS
+    SET
+        SOCIAL_ID = #{social_id},
+        LOGIN_PROVIDER = #{login_provider}
+    WHERE
+        LOGIN_ID = #{login_id}
+</update>
+
+<select id="getUserCountByLoginProvider" resultType="java.util.HashMap">
+        SELECT
+            LOGIN_PROVIDER AS "label", 
+            COUNT(*) AS "value"         
+        FROM
+            USERS
+        WHERE
+            LOGIN_PROVIDER IS NOT NULL  
+        GROUP BY
+            LOGIN_PROVIDER
+        ORDER BY
+            "value" DESC -- 사용자 많은 순으로 정렬 (선택적)
+    </select>
+
+</mapper>

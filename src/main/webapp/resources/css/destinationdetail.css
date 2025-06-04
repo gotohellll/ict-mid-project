@@ -1,0 +1,237 @@
+/* 공통 폰트 적용 */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.place_list_header {
+  background: white;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f9fafb;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.main_title {
+  font-size: 36px;
+  font-family: 'Pacifico', cursive;
+  color: #4F46E5;
+  margin-right: 12px;
+  text-decoration: none;
+}
+
+.main-nav {
+  margin-left: 16px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.main-nav a {
+  padding: 0.5rem 1rem;
+  color: #374151;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.main-nav a:hover {
+  color: #4F46E5;
+}
+
+@media (max-width: 768px) {
+  .main-nav {
+    writing-mode: vertical-rl;
+    align-items: flex-start;
+  }
+  .main-nav a {
+    padding: 0.5rem 1rem;
+    color: #374151;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+  }
+  .main-nav a:hover {
+    color: #4F46E5;
+  }
+}
+
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+.icon-button {
+  color: #4B5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.ri-user-line {
+  font-size: 24px;
+}
+
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 지역 탭 활성화 스타일 */
+.region-tab.active {
+    border-bottom: 2px solid #4F46E5;
+    color: #4F46E5;
+    font-weight: bold;
+}
+
+/* 슬라이더 이미지 공통 스타일 */
+#slider img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 현재 메뉴 강조 (예: 리뷰 및 평점, 홈) */
+a.nav-active {
+    color: #4F46E5;
+    font-weight: 600;
+    border-bottom: 2px solid #4F46E5;
+}
+
+/* 댓글 작성 영역 스타일 */
+.comment-form {
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.comment-form .comment-header {
+    display: flex;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.comment-form .comment-name {
+    width: 7rem;
+    border-right: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #374151;
+    font-weight: 500;
+}
+
+.comment-form .comment-body {
+    flex: 1;
+    padding: 0.75rem;
+}
+
+/* 별점 공통 */
+#starRating {
+  position: relative;
+  width: 120px;   /* 5개 × 24px */
+  height: 24px;
+  line-height: 1;
+  font-size: 0; /* 공백 없애기 */
+}
+
+#starRating i {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+#starRating .base,
+#starOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+#starRating .base {
+  color: #d1d5db;
+  z-index: 1;
+}
+
+#starOverlay {
+  color: #facc15;
+  z-index: 2;
+  transition: width 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+/* 텍스트 영역 */
+textarea#comment {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    resize: none;
+    outline: none;
+}
+
+textarea#comment:focus {
+    border-color: #4F46E5;
+    box-shadow: 0 0 0 1px #4F46E5;
+}
+
+/* Tripin logo */
+.logo {
+	width : 100px;
+	height : 40px;
+	align : center;
+}
+
+/* 버튼 스타일 */
+.comment-form button {
+    background-color: #4F46E5;
+    color: white;
+    padding: 0.375rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+}
+
+.comment-form button:hover {
+    background-color: #4338ca; /* hover 색상 */
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease-out;
+}

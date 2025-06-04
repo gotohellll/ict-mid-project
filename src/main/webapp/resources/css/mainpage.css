@@ -1,0 +1,283 @@
+/* 기본 폰트 설정 */ 
+
+/*메인 배경 및 기본 폰트 */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f9fafb !important;
+  margin: 0;
+  padding-top: 10px; /* 헤더 높이만큼 여백 */
+}
+
+
+/* Header wrapper */
+.place_list_header {
+  background: white;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 192px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  animation : shimmer 1.5s infinite;
+}
+
+
+/* Header’s inner container */
+.place_list_header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Left side (logo + nav) */
+.place_list_header .left-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Logo */
+.place_list_header .logo {
+  width: 100px;
+  height: 40px;
+  align: center;
+}
+
+/* Navigation */
+.place_list_header .main-nav {
+  margin-left: 16px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.place_list_header .main-nav a {
+  padding: 0.5rem 1rem;
+  color: #374151;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.place_list_header .main-nav a:hover {
+  color: #4F46E5;
+}
+
+/* Mobile nav */
+@media (max-width: 768px) {
+  .place_list_header .main-nav {
+    writhing-mode: vertical-rl;
+    align-items: flex-start;
+  }
+}
+
+/* User-icon group */
+.place_list_header .icon-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+.place_list_header .icon-button {
+  color: #4F46E5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.place_list_header .ri-user-line {
+  font-size: 24px;
+}
+
+.place_list_header {
+  background: white;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+  gap : 16px;
+}
+/* ✅ 배경 이미지 클릭 방지 */
+.hero-section::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0); /* 투명 */
+    z-index: 0;
+    pointer-events: none; /* ✅ 버튼 클릭 방해 방지 */
+}
+
+.theme-slide-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-slide {
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+.theme-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+.theme-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    z-index: 0; /* ✅ 이미지가 버튼보다 위로 가지 않도록 설정 */
+}
+
+/* 슬라이드 하단 이미지 */
+.bottom-images {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 0;
+}
+
+.bottom-img {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.bottom-img.active {
+    opacity: 1;
+}
+
+/* 슬라이드 버튼 디자인 */
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* 슬라이드 전체 묶음 */
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* 각각의 슬라이드 */
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.slide img {
+    width: 100%;
+    display: block;
+}
+
+/* 좌우 화살표 버튼 공통 디자인 */
+.arrow-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: 	#7a6fff;        /* ✅ 연보라 배경 */
+    color: #ffffff;                   /* ✅ 흰색 아이콘 */
+    border: none;
+    border-radius: 9999px;            /* ✅ 완전한 원형 */
+    width: 40px;
+    height: 40px;
+    font-size: 19px;                  /* 아이콘 크기 */
+    cursor: pointer;
+    z-index: 50;                      /* ✅ 배경보다 위 */
+    pointer-events: auto;            /* ✅ 클릭 가능 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* ✅ 버튼 그림자 */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.arrow-btn:hover {
+    background-color: #4F46E5;        /* ✅ hover 시 더 밝은 보라 */
+    transform: translateY(-50%) scale(1.07); /* 약간 커지는 효과 */
+}
+
+.arrow-btn:active {
+    background-color: #574bdf;        /* ✅ 클릭시 더 진한 보라 */
+    transform: translateY(-50%) scale(0.95); /* 클릭 눌림 효과 */
+}
+
+/* 왼쪽 버튼 위치 */
+.arrow-btn.left {
+    right: 60px;
+}
+
+/* 오른쪽 버튼 위치 */
+.arrow-btn.right {
+    right: 10px;
+}
+
+/* 배경 위 콘텐츠 스타일 */
+.hero-content {
+    z-index: 1;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+/* 입력창 포커스 스타일 */
+.search-input:focus {
+    outline: none;
+}
+
+/* 커스텀 체크박스 */
+.custom-checkbox {
+    position: relative;
+    padding-left: 28px;
+}
+
+.theme-slider::-webkit-scrollbar {
+  display: none;
+}
+.theme-slider {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

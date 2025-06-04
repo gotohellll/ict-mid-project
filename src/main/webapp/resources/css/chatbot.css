@@ -1,0 +1,450 @@
+@charset "UTF-8";
+
+/* 배경 및 기본 폰트 */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f9fafb;
+  margin: 0;
+  padding-top: 10px; /* 헤더 높이만큼 여백 */
+}
+
+/* 공통 container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tripin logo */
+.logo {
+   width : 100px;
+   height : 40px;
+   align : center;
+}
+
+/* 헤더 */
+.place_list_header {
+  background: white;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.left-header {
+  display: flex;
+  align-items: center;
+  gap : 16px;
+}
+
+
+
+/* 배경 및 기본 폰트 */
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f9fafb;
+  margin: 0;
+  padding-top: 10px; /* 헤더 높이만큼 여백 */
+}
+
+/* Tripin 타이틀 */
+.main_title {
+  font-size: 36px;
+  font-family: 'Pacifico', cursive;
+  color: #4F46E5;
+  margin-right: 12px;
+  text-decoration: none;
+}
+
+/* 네비게이션 바 */
+.main-nav {
+  margin-left: 16px;
+  display: flex;
+}
+
+.main-nav {
+  	display: flex;
+  	align-items: flex-start;
+  }
+
+  .main-nav a {
+    padding: 0.5rem 1rem; 
+    color: #374151; 
+    font-weight: 500; 
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+  }
+
+  .main-nav a:hover {
+    color: #4F46E5; 
+  }
+
+@media (max-width: 768px) {
+  .main-nav {
+  	writhing-mode: vertical-rl;
+  	align-items: flex-start;
+  }
+
+  .main-nav a {
+    padding: 0.5rem 1rem; 
+    color: #374151; 
+    font-weight: 500; 
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+  }
+
+
+
+  .main-nav a:hover {
+    color: #4F46E5; 
+  }
+  
+  
+}
+
+.trivy{
+	color: #4F46E5 !important;
+}
+
+/* 사용자 아이콘 그룹 */
+.icon-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 16px;
+}
+/* #4F46E5 */
+.icon-button {
+  color: #4B5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-button:hover{	
+	color: #4F46E5 !important;
+}
+
+.ri-user-line {
+  font-size: 24px;
+}
+
+/* 상단 텍스트 */
+.main-text {
+    text-align: center;
+    margin-bottom: 3rem; /* mb-12 = 48px */
+}
+
+.main-title {
+    font-size: 1.875rem; /* text-3xl ≈ 30px */
+    font-weight: bold;
+    color: #111827; 
+    margin-bottom: 1rem; /* mb-4 = 16px */
+}
+
+.main-subtext {
+    color: #4B5563; 
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* 여행계획, 고객문의 호버 */
+.tab-buttons {
+    display: flex;
+    gap: 0.5rem; /* gap-2 = 8px */
+    margin-bottom: 1.5rem; /* mb-6 = 24px */
+}
+
+.main-section {
+    flex-grow: 1;
+    max-width: 1024px;       
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;      /* 16px */
+    padding-right: 1rem;
+    padding-top: 2rem;       /* 32px */
+    padding-bottom: 2rem;
+}
+
+.tab-buttons button {
+    flex: 1;
+    padding: 0.75rem 1rem; /* py-3 px-4 */
+    border-radius: 9999px; /* rounded-full */
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* 활성 탭 (여행 계획) */
+.tab-active {
+    background-color: #4F46E5; /* Tailwind bg-primary */
+    color: white;
+}
+
+/* 비활성 탭 (고객 문의) */
+.tab-inactive {
+    background-color: transparent;
+    color: #4B5563; /* text-gray-600 */
+}
+
+.tab-inactive:hover {
+    background-color: #F3F4F6; /* hover:bg-gray-100 */
+}
+
+/* 챗봇 컨테이너 */
+.chat-container {
+    flex-grow: 1;
+    height: 600px;
+    overflow-y: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.chat-row-left {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.75rem;
+}
+
+.chat-row-right {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.chat-content {
+    flex-grow: 1;
+}
+
+.chat-bubble {
+    background-color: #f3f4f6; /* gray-100 */
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: inline-block;
+}
+
+.chat-bubble-right {
+    background-color: #4F46E5;      /* primary */
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: inline-block;
+    max-width: 80%;
+    margin-left: auto;              /* 핵심: 오른쪽으로 밀기 */
+}
+
+.chat-text {
+    color: #1f2937; /* gray-800 */
+    margin: 0;
+}
+
+.chat-text-white {
+    color: #ffffff; /* gray-800 */
+    margin: 0;
+}
+
+.chat-avatar {
+    width: 2rem;
+    height: 2rem;
+    background-color: #4F46E5; /* primary */
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon-white {
+    color: white;
+}
+
+.chat-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열 */
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+    .chat-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.option-button {
+    width: 100%; /* 버튼이 1fr의 그리드 셀을 꽉 채우도록 */
+    padding: 0.75rem 1rem;
+    border: 2px solid #4F46E5;
+    border-radius: 0.5rem;
+    color: #4F46E5;
+    background-color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-inq-button {
+    width: 100%; /* 버튼이 1fr의 그리드 셀을 꽉 채우도록 */
+    padding: 0.75rem 1rem;
+    border: 2px solid #4F46E5;
+    border-radius: 0.5rem;
+    color: #4F46E5;
+    background-color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-button:hover {
+    background-color: #4F46E5;
+    color: white;
+}
+
+
+/* 챗봇에 보내는 메세지입력란 */
+.card-box {
+    background-color: white;
+    border-radius: 0.75rem;     /* rounded-xl = 12px */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);  /* shadow-lg */
+    padding: 1.5rem;            /* 24px */
+}
+
+.message-input-wrapper {
+    border-top: 1px solid #e5e7eb; /
+    padding-top: 1rem; 
+}
+
+.message-input-row {
+    display: flex;
+    gap: 0.75rem; 
+}
+
+.message-input {
+    flex-grow: 1;
+    padding: 0.75rem 1rem; 
+    border: 1px solid #d1d5db; 
+    border-radius: 0.5rem;
+    color: #374151; /* text-gray-700 */
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.message-input:focus {
+    border-color: #4F46E5; /* focus:border-primary */
+}
+
+.send-button {
+    background-color: #4F46E5; /* bg-primary */
+    color: white;
+    padding: 0.75rem 1.5rem; /* py-3 px-6 */
+    border-radius: 9999px; /* !rounded-button (custom full-rounded) */
+    font-weight: 500;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.message-input:hover {
+    color: #2563EB; /* 약간 더 짙은 파랑 */
+    border-color: #2563EB;
+}
+
+
+.option-inq-button:hover {
+    color: #14eb9a; 
+    border-color: #14eb9a;
+}
+
+
+
+/* footer */
+
+.custom-footer {
+    background-color: white;
+    border-top: 1px solid #e5e7eb; /* Tailwind border-gray-200 */
+    margin-top: 2.5rem; /* mt-10 = 40px */
+}
+
+.footer-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem; /* px-4 py-6 = 24px vertical, 16px horizontal */
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+    }
+
+    .footer-left {
+        margin-bottom: 0;
+    }
+}
+
+.footer-left {
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+.footer-text {
+    color: #6B7280; /* text-gray-500 */
+    font-size: 0.875rem; /* text-sm */
+    margin: 0;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1rem; /* space-x-4 */
+}
+
+.footer-links a {
+    color: #6B7280;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #4F46E5; /* text-primary */
+}

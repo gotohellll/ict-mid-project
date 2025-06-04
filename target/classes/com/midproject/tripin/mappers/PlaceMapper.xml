@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midproject.tripin.repositiory.PlaceRepo">
+
+<!-- 	<select id="selectPlaceByUser" parameterType="Integer" resultType="com.midproject.tripin.model.PlaceVO">
+		SELECT d.dest_id, d.dest_name, d.dest_type, d.repr_img_url, d.full_address
+		FROM fav_dests f, dests d
+		WHERE f.dest_id = d.dest_id
+		AND f.user_id=#{user_id}
+	</select> -->
+
+	<select id="selectPlaceByUser" parameterType="Integer" resultType="PlaceVO">
+	    SELECT 
+	        d.dest_id,
+	        d.dest_name,
+	        d.dest_type,
+	        d.repr_img_url,
+	        d.full_address,
+	        NVL(AVG(r.rating), 0) AS avg_rating,
+	        COUNT(r.review_id) AS review_count
+	    FROM 
+	        fav_dests f
+	        JOIN dests d ON f.dest_id = d.dest_id
+	        LEFT JOIN reviews r ON r.dest_id = d.dest_id
+	    WHERE 
+	        f.user_id = #{user_id}
+	    GROUP BY 
+	        d.dest_id, d.dest_name, d.dest_type, d.repr_img_url, d.full_address
+	</select>
+	
+<insert id="bookmarkPlace" parameterType="map">
+INSERT INTO fav_dests
+VALUES(#{user_id}, #{dest_id}, sysdate)
+</insert>
+
+<delete id="deleteBookmark" parameterType="map">
+DELETE FROM fav_dests
+WHERE user_id=#{user_id} AND dest_id=#{dest_id}
+</delete>
+
+</mapper>

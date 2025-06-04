@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midproject.tripin.repositiory.VisitRepo">
+
+    <update id="increaseVisitCount">
+        MERGE INTO visit_counter vc
+        USING (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') AS today FROM dual) d
+        ON (vc.visit_date = d.today)
+        WHEN MATCHED THEN
+            UPDATE SET vc.total_count = vc.total_count + 1
+        WHEN NOT MATCHED THEN
+            INSERT (visit_date, total_count)
+            VALUES (d.today, 1)
+    </update>
+
+    <select id="getTodayVisitCount" resultType="int">
+        SELECT NVL(total_count, 0)
+        FROM visit_counter
+        WHERE visit_date = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+    </select>
+
+    <select id="getTotalVisitCount" resultType="int">
+        SELECT NVL(SUM(total_count), 0)
+        FROM visit_counter
+    </select>
+
+</mapper>

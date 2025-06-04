@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midproject.tripin.repositiory.AdminPlaceRepo">
+
+    <!-- ReviewVO에 userName, destName 필드가 추가되었다고 가정 -->
+    <select id="getAllDestinationsForAdmin" resultType="AdminPlaceVO">
+       SELECT
+            DEST_ID,        -- destId
+            DEST_NAME,      -- destName
+            DEST_TYPE,      -- destType
+            REPR_IMG_URL,   -- reprImgUrl
+            FULL_ADDRESS,   -- fullAddress
+            CONTACT_NUM,    -- contactNum
+            OPER_HOURS,      -- operHours
+            FEE_INFO,
+            REL_KEYWORDS,
+            ORIG_JSON_DATA
+            
+            
+        FROM DESTS
+        ORDER BY DEST_ID DESC
+    </select>
+    <select id="getDetailDest" parameterType="long" resultType="AdminPlaceVO">
+        SELECT *
+        FROM
+            DESTS
+        WHERE
+            DEST_ID = #{dest_id}
+    </select>
+        <update id="updateDest" parameterType="AdminPlaceVO">
+        UPDATE DESTS
+        SET
+            DEST_NAME = #{dest_name},
+           	DEST_TYPE = #{dest_type},
+            FULL_ADDRESS = #{full_address},
+            CONTACT_NUM = #{contact_num},
+            OPER_HOURS = #{oper_hours}, 
+            FEE_INFO = #{fee_info},
+            REPR_IMG_URL = #{repr_img_url}
+           
+        WHERE
+            DEST_ID = #{dest_id}
+    </update>
+	  <delete id="deleteDest" parameterType="AdminPlaceVO">
+        DELETE FROM DESTS WHERE DEST_ID = #{dest_id}
+    </delete>
+
+</mapper>

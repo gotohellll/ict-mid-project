@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.midproject.tripin.repositiory.AdminActionLogRepo">
+
+    <insert id="insertLog" parameterType="AdminActionLogVO">
+        INSERT INTO ADMIN_ACTIVITY_LOGS (
+            ADMIN_ID, ACTION_TIMESTAMP, TARGET_TYPE, TARGET_ID,
+            ACTION_TYPE, ACTION_DETAILS, RESULT_STATUS
+        ) VALUES (
+            #{admin_id}, SYSDATE, #{target_type}, #{target_id},
+            #{action_type}, #{action_details, jdbcType=CLOB}, #{result_status}
+        )
+    </insert>
+
+  
+    <select id="getLogs" parameterType="map" resultType="AdminActionLogVO">
+        SELECT 
+        L.LOG_ID,
+        L.ADMIN_ID,
+        A.ADMIN_NAME,
+        L.ACTION_TIMESTAMP,
+        L.TARGET_TYPE,
+        L.TARGET_ID,
+        L.ACTION_TYPE,
+        L.ACTION_DETAILS,
+        L.IP_ADDRESS,
+        L.RESULT_STATUS
+        FROM ADMIN_ACTIVITY_LOGS L
+        JOIN ADMINS A ON L.ADMIN_ID = A.ADMIN_ID
+        ORDER BY L.ACTION_TIMESTAMP DESC
+    </select>
+
+    <select id="getTotalLogCount" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM ADMIN_ACTIVITY_LOGS L
+        JOIN ADMINS A ON L.ADMIN_ID = A.ADMIN_ID
+    </select>
+
+    <select id="getLogById" parameterType="long" resultType="AdminActionLogVO">
+        SELECT
+        FROM ADMIN_ACTIVITY_LOGS L
+        JOIN ADMINS A ON L.ADMIN_ID = A.ADMIN_ID
+        WHERE L.LOG_ID = #{log_id}
+    </select>
+
+</mapper>

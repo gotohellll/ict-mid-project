@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- db에 저장된 api값 조회 sql -->
+<mapper namespace="com.midproject.tripin.repositiory.PlaceViewRepo">
+
+<!-- db저장값 조회 -->
+<!-- 전체 db값 랜덤 출력 -->
+<select id="getAllPlaces" parameterType="hashmap" resultType="PlaceVO">
+
+    SELECT *
+    FROM dests d
+    LEFT JOIN dest_themes dt ON dt.dest_id = d.dest_id
+    LEFT JOIN themes t ON t.theme_id = dt.theme_id
+    LEFT JOIN reviews r ON d.dest_id = r.dest_id
+    <if test="user_id != null">
+        LEFT JOIN fav_dests f ON d.dest_id = f.dest_id AND f.user_id = #{user_id}
+    </if>
+    <if test="user_id == null">
+        LEFT JOIN fav_dests f ON d.dest_id = f.dest_id
+    </if>
+
+    <where>
+        <if test="searchKeyword != null and searchKeyword != ''">
+            (d.dest_name LIKE '%' || #{searchKeyword} || '%'
+            OR d.full_address LIKE '%' || #{searchKeyword} || '%')
+        </if>
+        <if test="theme_id != null">
+            AND t.theme_id = #{theme_id}
+        </if>
+    </where>
+
+    <choose>
+        <when test="sort == '별점순'">
+            ORDER BY r.rating DESC
+        </when>
+        <otherwise>
+            ORDER BY dbms_random.value
+        </otherwise>
+    </choose>
+
+</select>
+
+
+<select id="getRandomTop5Places" resultType="com.midproject.tripin.model.PlaceVO">
+  SELECT *
+  FROM (
+    SELECT
+      dest_id,
+    dest_name,
+    full_address,
+    repr_img_url
+  FROM dests
+  ORDER BY DBMS_RANDOM.VALUE
+  )
+  WHERE ROWNUM &lt;= 5
+</select>
+
+
+
+<!-- 
+<select id="getPlaceByFilter" parameterType="com.midproject.tripin.model.PlaceVO" resultType="com.midproject.tripin.model.PlaceVO">
+	SELECT d.*
+	FROM dests d
+	JOIN dest_themes dt ON dt.dest_id = d.dest_id
+	JOIN themes t ON t.theme_id = dt.theme_id
+	WHERE dt.theme_id = #{theme_id}
+</select>
+ -->
+
+<update id="updateViewCnt" parameterType="int">
+	UPDATE themes
+	SET theme_cnt = NVL(theme_cnt, 0) + 1
+	WHERE theme_id = #{theme_id}
+</update>
+
+
+<select id="getPlaceByDestId" resultType="PlaceVO">
+	SELECT  
+	DEST_ID,
+	DEST_NAME,
+	DEST_TYPE,
+	REPR_IMG_URL,
+	FULL_ADDRESS,
+	CONTACT_NUM,
+	OPER_HOURS,
+	FEE_INFO,
+	REL_KEYWORDS,
+	ORIG_JSON_DATA,
+	CREATED_TIME,
+	REST_DATE,
+	CONTENT_TYPE
+	FROM DESTS
+	WHERE dest_id = #{dest_id}
+</select> 
+</mapper>

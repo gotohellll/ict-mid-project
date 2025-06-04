@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midproject.tripin.repositiory.ReviewRepo">
+	
+	<select id="selectReviewByUser" parameterType="Integer" resultType="ReviewVO">
+		SELECT r.*, d.dest_name
+		FROM reviews r, dests d
+		WHERE r.dest_id = d.dest_id
+		AND user_id=#{user_id}
+	</select>
+	
+	<delete id="deleteReview">
+		DELETE FROM reviews
+		WHERE review_id=#{review_id}
+	</delete>
+	
+	<select id="reviewCountByUser" parameterType="Integer" resultType="Integer">
+		SELECT count(*)
+		FROM reviews
+		WHERE user_id=#{user_id}
+	</select>
+	
+<select id="getRandomReviews" resultType="com.midproject.tripin.model.ReviewVO">
+  SELECT
+    r.review_id,
+    r.user_id,
+    r.dest_id,
+    r.content,
+    r.rating,
+    r.created_at,
+    d.dest_name  AS dest_name,   
+    u.user_name  AS user_name    
+  FROM (
+    SELECT *
+    FROM reviews
+    ORDER BY DBMS_RANDOM.VALUE
+  ) r
+  JOIN dests  d ON r.dest_id = d.dest_id
+  JOIN users  u ON r.user_id = u.user_id
+  WHERE ROWNUM &lt;= 3
+</select>
+
+	
+
+</mapper>

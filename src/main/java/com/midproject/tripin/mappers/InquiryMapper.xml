@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.midproject.tripin.repositiory.InquiryRepo">
+	<select id="selectInquiryListByUser" parameterType="Integer" resultType="InquiriesVO">
+		SELECT chat_inq_id, user_id, user_query, chatbot_resp, conv_at, inquiry_category, inquiry_detail, inquiry_status, assigned_admin_id, NVL(admin_response, '관리자가 문의를 확인하고 있습니다. 조금만 기다려주세요.') admin_response, responded_at, priority
+		FROM chat_inquiries
+		WHERE user_id=#{user_id}	
+	</select>
+	<delete id="deleteInquiry" parameterType="Integer">
+		DELETE FROM chat_inquiries
+		WHERE chat_inq_id = #{chat_inq_id}
+	</delete>
+	
+	<select id="getUncheckedResponseCountByUserId" parameterType="Integer" resultType="int">
+    SELECT COUNT(*)
+    FROM CHAT_INQUIRIES
+    WHERE USER_ID = #{user_id}
+      AND ADMIN_RESPONSE IS NOT NULL  
+      AND IS_USER_CHECKED = 'N'       
+      AND INQUIRY_STATUS IN ('RESOLVED', 'CLOSED') -- 
+	</select>
+
+	<update id="markResponseAsChecked">
+    UPDATE CHAT_INQUIRIES
+    SET IS_USER_CHECKED = 'Y'
+    WHERE CHAT_INQ_ID = #{chat_inq_id}
+      AND USER_ID = #{user_id} -- 본인의 문의만 상태 변경 가능하도록
+	</update>
+	
+	   <update id="markAllResponsesAsCheckedForUser" parameterType="Integer">
+        UPDATE CHAT_INQUIRIES
+        SET IS_USER_CHECKED = 'Y'
+        WHERE USER_ID = #{user_id}
+          AND ADMIN_RESPONSE IS NOT NULL  -- 관리자 답변이 있는 경우에만
+          AND IS_USER_CHECKED = 'N'       -- 아직 확인하지 않은 경우
+    </update>
+	</mapper>
