@@ -69,13 +69,13 @@ public class PlaceViewController {
 			return fetchFilterdPlaces(searchKeyword, theme_id, sort);
 		}
 		
-		//조회수 증가 
-		@PostMapping("place_list/updateViewCnt")
-		@ResponseBody
-		public int updateViewcnt(@RequestParam("theme_id") int theme_id) {
-			
-			return placeViewService.updateViewCnt(theme_id);
-		}
+	//조회수 증가 
+	@PostMapping("place_list/updateViewCnt")
+	@ResponseBody
+	public int updateViewcnt(@RequestParam("theme_id") int theme_id) {
 		
+		return placeViewService.updateViewCnt(theme_id);
 	}
+		
+}
 

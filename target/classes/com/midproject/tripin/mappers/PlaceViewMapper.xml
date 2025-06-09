@@ -7,8 +7,15 @@
 <!-- db저장값 조회 -->
 <!-- 전체 db값 랜덤 출력 -->
 <select id="getAllPlaces" parameterType="hashmap" resultType="PlaceVO">
-
-    SELECT *
+    SELECT d.dest_id
+    	,d.dest_name
+    	,d.dest_type
+    	,d.repr_img_url
+    	,d.full_address
+    	,d.created_time
+    	,d.content_type
+    	,NVL(COUNT(r.review_id),0) AS review_count
+    	,NVL(AVG(r.rating),0) AS avg_rating
     FROM dests d
     LEFT JOIN dest_themes dt ON dt.dest_id = d.dest_id
     LEFT JOIN themes t ON t.theme_id = dt.theme_id
@@ -19,7 +26,6 @@
     <if test="user_id == null">
         LEFT JOIN fav_dests f ON d.dest_id = f.dest_id
     </if>
-
     <where>
         <if test="searchKeyword != null and searchKeyword != ''">
             (d.dest_name LIKE '%' || #{searchKeyword} || '%'
@@ -29,16 +35,24 @@
             AND t.theme_id = #{theme_id}
         </if>
     </where>
-
+	GROUP BY d.dest_id
+	    	,d.dest_name
+	    	,d.dest_type
+	    	,d.repr_img_url
+	    	,d.full_address
+	    	,d.created_time
+	    	,d.content_type
     <choose>
-        <when test="sort == '별점순'">
-            ORDER BY r.rating DESC
+        <when test="sort != null and sort == '인기순'">
+            ORDER BY review_count DESC, avg_rating DESC
+        </when>
+        <when test="sort != null and sort == '최신순'">
+        	ORDER BY d.created_time DESC
         </when>
         <otherwise>
-            ORDER BY dbms_random.value
+            ORDER BY DBMS_RANDOM.VALUE
         </otherwise>
     </choose>
-
 </select>
 
 

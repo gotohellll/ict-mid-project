@@ -231,8 +231,23 @@
 	                <div class="star">
 	                    <i class="ri-star-fill"></i>
 	                </div>
-	                <span class="place-rate">4.8</span>
-	                <span class="place-review-cnt">(256)</span>
+	                <c:choose>
+	                	<c:when test="empty ${place.avg_rating}">	                
+	                		<span class="place-rate">0</span>
+	               		 </c:when>
+	               		 <c:otherwise>
+	               		 		<span class="place-rate">${place.avg_rating}</span>
+	               		 </c:otherwise>
+	                </c:choose>
+	                <c:choose>
+	                	<c:when test="empty ${place.review_count}">
+			                <span class="place-review-cnt">(0)</span>            		
+	                	</c:when>
+	                	<c:otherwise>
+			                <span class="place-review-cnt">(${place.review_count})</span>            		                	
+	                	</c:otherwise>
+	                </c:choose>
+
 	            </div>
 	        </div>
 	  	</div>

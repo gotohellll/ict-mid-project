@@ -105,38 +105,46 @@ $.each(result, function(index, place){
 //result : ajax응답으로 받은 여행지 배열
 // index : 배열 내 현재 반복 순서
 // place : 배열 안 각 여행지 객체
-const imgHtml = place.repr_img_url
-       ? `<img class="place-img" src="${place.repr_img_url}" alt="${place.dest_name}">`
-       : `<div class="skeleton-img shimmer"></div>`;
-
-   const html = `
-       <div class="place-card" style="display: none;"
-    data-dest-id="${place.dest_id}">
-           ${imgHtml}
-           <button class="bookmark" type="button">
-               <i class="ri-heart-line"></i>
-           </button>
-           <div class="place-content">
-               <h3 class="place-title">${place.dest_name}</h3>
-               <p class="place-text">${place.rel_keywords || ''}</p>
-           </div>
-           <div class="place-info">
-               <div class="place-info-left">
-                   <div class="map-pin">
-                       <i class="ri-map-pin-line"></i>
-                   </div>
-                   <span>${place.full_address}</span>
-               </div>
-               <div class="place-info-right">
-                   <div class="star">
-                       <i class="ri-star-fill"></i>
-                   </div>
-                   <span class="place-rate">4.8</span>
-                   <span class="place-review-cnt">(256)</span>
-               </div>
-           </div>
-       </div>
-   `;
+	const imgHtml = place.repr_img_url
+			? `<img class="place-img" src="${place.repr_img_url}" alt="${place.dest_name}">`
+					: `<div class="skeleton-img shimmer"></div>`;
+	
+	const review = place.review_count 
+			? `<span class="place-review-cnt">${place.review_count}</span>`
+			: `<span class="place-review-cnt">0</span>`
+				
+	const rate = place.avg_rating
+			? `<span class="place-rate">(${place.avg_rating})</span>`
+			: `<span class="place-rate">(0)</span>`
+				
+	const html = `
+			<div class="place-card" style="display: none;"
+			data-dest-id="${place.dest_id}">
+			${imgHtml}
+			<button class="bookmark" type="button">
+			<i class="ri-heart-line"></i>
+			</button>
+			<div class="place-content">
+			<h3 class="place-title">${place.dest_name}</h3>
+			<p class="place-text">${place.rel_keywords || ''}</p>
+			</div>
+			<div class="place-info">
+			<div class="place-info-left">
+			<div class="map-pin">
+			<i class="ri-map-pin-line"></i>
+			</div>
+			<span>${place.full_address}</span>
+			</div>
+			<div class="place-info-right">
+			<div class="star">
+			<i class="ri-star-fill"></i>
+			</div>
+			${rate}
+			${review}
+			</div>
+			</div>
+			</div>
+			`;
    
    $('.result-bar').append(html);
 }); //end of each
@@ -203,38 +211,46 @@ $.each(result, function(index, place){
 //result : ajax응답으로 받은 여행지 배열
 // index : 배열 내 현재 반복 순서
 // place : 배열 안 각 여행지 객체
-const imgHtml = place.repr_img_url
-       ? `<img class="place-img" src="${place.repr_img_url}" alt="${place.dest_name}">`
-       : `<div class="skeleton-img shimmer"></div>`;
-
-   const html = `
-       <div class="place-card" style="display: none;"
-    data-dest-id="${place.dest_id}">
-           ${imgHtml}
-           <button class="bookmark" type="button">
-               <i class="ri-heart-line"></i>
-           </button>
-           <div class="place-content">
-               <h3 class="place-title">${place.dest_name}</h3>
-               <p class="place-text">${place.rel_keywords || ''}</p>
-           </div>
-           <div class="place-info">
-               <div class="place-info-left">
-                   <div class="map-pin">
-                       <i class="ri-map-pin-line"></i>
-                   </div>
-                   <span>${place.full_address}</span>
-               </div>
-               <div class="place-info-right">
-                   <div class="star">
-                       <i class="ri-star-fill"></i>
-                   </div>
-                   <span class="place-rate">4.8</span>
-                   <span class="place-review-cnt">(256)</span>
-               </div>
-           </div>
-       </div>
-   `;
+	const imgHtml = place.repr_img_url
+			? `<img class="place-img" src="${place.repr_img_url}" alt="${place.dest_name}">`
+					: `<div class="skeleton-img shimmer"></div>`;
+	
+	const review = place.review_count 
+			? `<span class="place-review-cnt">${place.review_count}</span>`
+			: `<span class="place-review-cnt">0</span>`
+				
+	const rate = place.avg_rating
+			? `<span class="place-rate">(${place.avg_rating})</span>`
+			: `<span class="place-rate">(0)</span>`
+				
+	const html = `
+			<div class="place-card" style="display: none;"
+			data-dest-id="${place.dest_id}">
+			${imgHtml}
+			<button class="bookmark" type="button">
+			<i class="ri-heart-line"></i>
+			</button>
+			<div class="place-content">
+			<h3 class="place-title">${place.dest_name}</h3>
+			<p class="place-text">${place.rel_keywords || ''}</p>
+			</div>
+			<div class="place-info">
+			<div class="place-info-left">
+			<div class="map-pin">
+			<i class="ri-map-pin-line"></i>
+			</div>
+			<span>${place.full_address}</span>
+			</div>
+			<div class="place-info-right">
+			<div class="star">
+			<i class="ri-star-fill"></i>
+			</div>
+			${rate}
+			${review}
+			</div>
+			</div>
+			</div>
+			`;
    
    $('.result-bar').append(html);
 }); //end of each

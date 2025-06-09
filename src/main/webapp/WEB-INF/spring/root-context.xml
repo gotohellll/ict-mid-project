@@ -12,7 +12,7 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-	<property name="url" value="jdbc:oracle:thin:@192.168.0.36:1521:xe"></property>
+	<property name="url" value="jdbc:oracle:thin:@192.168.0.12:1521:xe"></property>
 	<property name="username" value="tripin"></property>
 	<property name="password" value="tripin123"></property>
 	</bean>	 
